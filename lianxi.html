@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义过滤器字母大小写反转</title>
+	<script src="../angularjs/angular.min.js"></script>
+</head>
+<body ng-app="app">
+	<div ng-controller="ctrl">
+		{{"abCDefg"|upperLower}}
+	</div>
+	<div ng-controller="ctrl2">
+		<input type="text" ng-model="msg" ng-change="ch()">
+		 <p>{{chmsg}}</p>
+	</div>
+</body>
+	<script>
+		var app = angular.module("app",[]);
+		app.controller("ctrl",["$scope",function($scope){
+
+		}]);
+		app.filter("upperLower",function(){
+			return function(msg){
+ 			var arr = msg.split("");
+ 			for(i=0;i<arr.length;i++){
+ 				if(arr[i]==arr[i].toUpperCase()){
+ 					arr[i] = arr[i].toLowerCase();
+ 				}else{
+ 					arr[i] = arr[i].toUpperCase();
+ 				}
+ 			}
+ 			
+ 			return arr.join("");
+
+		}
+	});
+	//方法2 双向数据绑定
+	 app.controller("ctrl2",["$scope",function($scope){
+			$scope.ch = function(){
+				var arr = $scope.msg.split("");
+	 			for(i=0;i<arr.length;i++){
+ 				if(arr[i]==arr[i].toUpperCase()){
+ 					arr[i] = arr[i].toLowerCase();
+ 				}else{
+ 					arr[i] = arr[i].toUpperCase();
+ 				}
+ 			}
+ 			$scope.chmsg = arr.join("");
+		}
+	}]);
+
+	</script>
+</html>
